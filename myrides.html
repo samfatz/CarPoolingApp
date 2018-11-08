@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Active Rides</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" >
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/checkLoggedIn.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+<div data-role="page" id="activerides">
+
+    <div data-role="header" class="ui" data-position="fixed">
+        <h1>Car Sharing</h1>
+        <a href="#" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right logout">Logout</a>
+
+    </div>
+
+
+    <!-- Navbar Start -->
+    <div data-role="navbar">
+        <ul class="nav">
+            <li><a href="create-ride.html">Create Ride</a></li>
+            <li><a href="findride.html" >Find Ride</a></li>
+            <li><a href="#" class="ui-btn-active findRides ui-state-persist">My Rides</a></li>
+
+        </ul>
+    </div>
+    <!-- /navbar -->
+
+    <div id="my-rides-content" role="main" align="center" class="ui-content content">
+        <!--<p>My Rides</p>-->
+        <!--<p>Show rides that you have applied for but driver hasnt accepted</p>-->
+        <!--<p>Show accepted rides details - time/place</p>-->
+        <!--<p>Show rides where you are driver and passenger pickup locations?</p>-->
+        <table id="my-rides-table" data-role="table" data-mode="reflow" class="ui-responsive ui-table ui-table-reflow">
+            <thead>
+            <tr>
+                <th>Time</th>
+                <th>From</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="footer" data-role="footer" data-position="fixed">
+        Click to access Account
+    </div>
+    <script type="text/javascript" src="js/swipe.js"></script>
+    <script type="text/javascript" src="js/logout.js"></script>
+    <script type="text/javascript" src="js/my-rides.js"></script>
+
+
+</div>
+
+
+</body>
+</html>

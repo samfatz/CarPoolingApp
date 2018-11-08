@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" >
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link rel="stylesheet" href="css/style.css"/>
+
+
+</head>
+<body>
+
+<div data-role="page" id="one">
+    <script type="text/javascript" src="js/login.js"></script>
+    <div data-role="header">
+        <h1>Login</h1>
+    </div>
+    <div data-role="content" id="content" align="center">
+
+        <form id="loginForm" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off">
+            <label id="emailLabel" for="email">Email:</label>
+            <input id="email" type="text" placeholder="Email Address" />
+            <label for="password">Password:</label>
+            <input id="password" type="password" placeholder="Password"/>
+            <button id="login">Login</button>
+            <!-- To trigger popup -->
+            <a href="#popup" data-rel="popup" data-transition="pop" id="pTrigger" data-position-to="#position"> </a>
+            <a href="register.html" data-rel="dialog" class="ui-shadow ui-btn ui-corner-all"  data-transition="pop">Click Here to Register</a>
+
+        </form>
+    </div>
+
+    <!-- Where error content gets appeneded to -->
+    <div data-role="popup" id="popup">
+        <p id="errors"></p>
+        <p id="pErr"></p>
+    </div>
+</div>
+</body>
+</html>

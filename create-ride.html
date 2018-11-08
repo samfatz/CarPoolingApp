@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" >
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/checkLoggedIn.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <style>
+        .map {
+            height: 15em;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div data-role="page" id="active-rides">
+    <div data-role="header" class="ui" data-position="fixed">
+        <h1>Car Sharing</h1>
+        <a href="#" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right logout">Logout</a>
+
+    </div>
+    <div data-role="navbar">
+        <ul id="nav">
+            <li><a href="#" class="ui-btn-active activeRides ui-state-persist">Create Ride</a></li>
+            <li><a href="findride.html" >Find Ride</a></li>
+            <li><a href="myrides.html">My Rides</a></li>
+
+        </ul>
+    </div><!-- /navbar -->
+    <div id="createcontent" role="main" align="center" class="ui-content">
+        <div id="content-area">
+
+            <div id="ride-information">
+                <p>Before selecting route details of your ride, please provide some details to help others decide if
+                    this ride is right for them:</p>
+                Date and Leaving Time:
+                <input type="datetime-local" id="time"><br>
+                Details about your ride (requirements, need-to-knows etc):<br> <textarea id="description"></textarea><br>
+
+                <div class="ui-field-contain">
+                    <label for="vehicle">Vehicle:</label>
+                    <select name="vehicle" id="vehicle">
+                        <option value="0">-</option>
+                    </select>
+                    <div id="add-vehicle-text"></div>
+                    <a href="add-vehicle.html" data-rel="dialog"  data-transition="pop">Add New Vehicle</a>
+                </div>
+                <br>
+
+                <button id="continue">Continue</button>
+            </div>
+
+            <div id="location-selection">
+                <p id="instruction-area">Please select your <strong>pick-up point</strong>:</p>
+
+                <input type="text" name="search" id="search" placeholder="Search" />
+
+                <div id="map" class="map"></div>
+
+                <button id="submit-button">Continue</button>
+                <button id="back2">Go Back</button>
+            </div>
+
+            <div id="confirmation">
+                <p>Please confirm the following information about your ride is correct:</p>
+
+                <strong>Estimated Journey:</strong>
+                <div id="map2" class="map"></div>
+                <strong>At:</strong> <div id="confirmation-time"></div><br>
+                <strong>With Vehicle:</strong> <div id="confirmation-vehicle"></div><br>
+                <strong>Further Details:</strong><br> <div id="confirmation-description"></div>
+
+                <button id="confirm">These Details Are Correct</button>
+                <button id="back3">Go Back</button>
+            </div>
+
+            <div id="success">
+                <p>Ride added successfully.  <a href="create-ride.html" rel="external" />Create another ride</a></p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <div  class="footer" data-role="footer" data-position="fixed">
+        Click to access Acount
+    </div>
+    <script>
+        window.google = {};
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNgPG8RxuadW9QL-D3x3Rk4iT_ghLIAdE&libraries=places">
+    </script>
+    <script type="text/javascript" src="js/create-ride.js"></script>
+    <script type="text/javascript" src="js/logout.js"></script>
+    <script type="text/javascript" src="js/swipe.js"></script>
+
+</div>
+
+</body>
+</html>

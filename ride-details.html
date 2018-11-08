@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" >
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/checkLoggedIn.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNgPG8RxuadW9QL-D3x3Rk4iT_ghLIAdE&libraries=places"></script>
+   <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+<!-- Popup for maps -->
+<<div data-role="page" id="map-page">
+        <div data-role="header" class="ui" data-position="fixed">
+        <h1>Maps</h1>
+        <a  href="findride.html" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-back">Back</a>
+
+
+        </div>
+        <div role="main" class="ui-content" >
+            <div id="map-canvas">
+
+
+            </div>
+            <!-- map loads here... -->
+        </div>
+    <script>
+
+        var id, setoff_location, dest_location, tTime, vehicle, description;
+        var setoff_long, setoff_lat, dest_long, dest_lat;
+        var setoff_address, dest_address;
+        var map;
+        var directionsDisplay, directionsService;
+
+
+        var defaultLatLng = new google.maps.LatLng(55.864304, -4.251686);  // Default to Hollywood, CA when no geolocation support
+        // if ( navigator.geolocation ) {
+        //     function success(pos) {
+        //         // Location found, show map with these coordinates
+        //         drawMap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+        //     }
+        //     function fail(error) {
+        //         drawMap(defaultLatLng);  // Failed to find location, show default map
+        //     }
+        //     // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
+        //     navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 500000, enableHighAccuracy:true, timeout: 6000});
+        // } else {
+        drawMap(defaultLatLng);  // No geolocation support, show default map
+        //}
+        function drawMap(latlng) {
+            var myOptions = {
+                zoom: 10,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+            directionsDisplay = new google.maps.DirectionsRenderer();
+            directionsService = new google.maps.DirectionsService();
+            // Add an overlay to the map of current lat/lng
+            /*
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: "Greetings!"
+            });
+            */
+        }
+
+        this.drawRoute = function(setoff, dest) {
+            var request = {
+                origin: setoff,
+                destination: dest,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+            directionsService.route(request, function(result, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(result);
+                    directionsDisplay.setMap(map);
+                } else {
+                    alert("couldn't get directions:" + status);
+                }
+            });
+
+        };
+
+
+        $.param = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+           if(results !== null && results[1] !== null){
+               console.log(results[1]);
+               return results[1];
+           }else{
+               console.log("returned 0, route not being shown");
+               return 0;
+
+           };
+
+           // return results[1] || 0;
+        }
+
+        $( document ).one( "pageinit", function() {
+
+            $.getJSON("control/ajax-handler.php?data=ride&id=" + $.param('id'), function(data){
+
+                for(var i=0; i<data.length; i++){
+                    id = data[i]['id'];
+                    setoff_location = data[i]['setoff_location'];
+                    dest_location = data[i]['dest_location'];
+                    tTime = data[i]['time'];
+                    vehicle = data[i]['vehicle'];
+                    description = data[i]['description'];
+
+                    $.getJSON("control/ajax-handler.php?data=location&id=" + setoff_location, function(data){
+                        setoff_lat = data[0]['longitude'];
+                        setoff_long = data[0]['latitude'];
+                        setoff_address = data[0]['address'];
+
+
+                    });
+                    $.getJSON("control/ajax-handler.php?data=location&id=" + dest_location, function(data){
+                        dest_lat = data[0]['longitude'];
+                        dest_long = data[0]['latitude'];
+                        dest_address = data[0]['address'];
+
+                        drawRoute(new google.maps.LatLng(setoff_long, setoff_lat), new google.maps.LatLng(dest_long, dest_lat));
+                    });
+                }
+            });
+
+
+            // We need to put this in a function, since we only want to run it after all AJAX JSON's have been retrieved.
+            function marker(latitude, long) {
+                new google.maps.Marker({
+                    position: new google.maps.LatLng(long, latitude),
+                    map: map,
+                    title: "Greetings!"
+                });
+
+
+
+            }
+
+
+        });
+    </script>
+</div>
+
+</body>
+</html>

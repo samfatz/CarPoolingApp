@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Vehicle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+</head>
+<body>
+<div data-role="page" id="add-vehicle">
+    <script type="text/javascript" src="js/add-vehicle.js"></script>
+
+    <div data-role="header">
+        <h1>Add New Vehicle</h1>
+    </div>
+    <div role="main" id="vehicleForm">
+        <label id="regLabel">Registration Number:
+            <input type="text" id="registration"/>
+        </label>
+        <br><label id="modelLabel">Model (eg, Audi A3, BMW 330i etc):
+        <input type="text" id="model"/>
+    </label>
+        <br><label id="seatsLabel">Seats (including driver):
+
+            <select name="select-native-2" id="seats" data-mini="true">
+                <option value="1">1 Seat</option>
+                <option value="2">2 Seats</option>
+                <option value="3">3 Seats</option>
+                <option value="4">4 Seat</option>
+                <option value="5">5 Seats</option>
+                <option value="6">6 Seats</option>
+                <option value="7">7 Seat</option>
+                <option value="8">8 Seats</option>
+                <option value="9">9 Seats</option>
+                <option value="10">10+ Seats</option>
+            </select>
+
+    </label>
+        <button id="submit-vehicle">Add Vehicle</button>
+    </div>
+
+</body>
+</html>
